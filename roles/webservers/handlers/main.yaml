@@ -1,0 +1,9 @@
+---
+ - name: migrate db    
+   command: chdir=/opt/apps/knox ./manage.py migrate –all
+   
+ - name: generate static    
+   command: command chdir=/opt/apps/knox ./manage.py  collectstatic
+
+ - name: restart nginx
+   service: name=nginx state=restarted 

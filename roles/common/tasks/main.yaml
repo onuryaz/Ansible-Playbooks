@@ -1,0 +1,5 @@
+---
+- name: Upgrade Apt Safely
+  apt: upgrade=safe
+  async: 600
+  poll: 5

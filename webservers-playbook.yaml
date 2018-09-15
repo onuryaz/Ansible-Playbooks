@@ -1,0 +1,11 @@
+--- 
+- name: Configure Webservers
+  hosts: webservers
+  sudo_user: root
+  remote_user: ubuntu
+  roles: 
+    - webservers
+  notify:      
+  - migrate db      
+  - generate static      
+  - restart nginx

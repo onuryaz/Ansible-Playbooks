@@ -1,0 +1,34 @@
+---
+- name: Update Apt Cache
+  apt: update_cache=yes
+
+- name: Install Required Packages
+  apt: name={{ item }} state=present
+  with_items:
+    - python3-pip
+    - python3-dev
+    - libpq-dev 
+    - git
+    - nginx
+
+- name: Upgrade PIP 
+  command: sudo -H pip3 install --upgrade pip
+
+- name: Install Virtualenv
+  pip: name=virtualenv state=present
+
+- name: Make Project Directory
+  file: path=~/knox ensure=directory mode=755 owner=ubuntu group=www-data
+
+- name: Application Required Packages
+  pip: requirements=~/knox/requirements.txt virtualenv=~/knox/knoxenv
+
+- name: copy nginx config    
+  copy: src=files/webserver_nginx.conf dest=/etc/sites-enabled/webserver_nginx.conf
+
+- name: copy gunicorn config    
+  copy: src=files/gunicorn.service dest=/etc/systemd/system/gunicorn.service
+
+- name: checkout django-app    
+  action: git repo=git@github.com:knoxknot/django-app.git dest=/opt/apps/knox force=no
+ 
