@@ -3,6 +3,8 @@
   hosts: dbservers
   sudo_user: root
   remote_user: ubuntu
+
   roles: 
     - postgres
+
   

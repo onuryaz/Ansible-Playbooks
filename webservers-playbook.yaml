@@ -1,4 +1,3 @@
---- 
 - name: Configure Webservers
   hosts: webservers
   sudo_user: root
@@ -9,3 +8,5 @@
   - migrate db      
   - generate static      
   - restart nginx
+
+
